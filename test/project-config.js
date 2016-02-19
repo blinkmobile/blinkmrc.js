@@ -13,7 +13,7 @@ const test = require('ava');
 
 // local modules
 
-const userConfig = require('..').userConfig;
+const projectConfig = require('..').projectConfig;
 const pkg = require('../package.json');
 
 // this module
@@ -24,31 +24,32 @@ test.beforeEach((t) => {
   return temp.mkdir(pkg.name.replace(/\//g, '-') + '-')
     .then((dirPath) => {
       t.context.tempDir = dirPath;
-      t.context.cfg = userConfig({
-        userConfigDir: dirPath,
+      t.context.cfg = projectConfig({
+        cwd: dirPath,
         name: pkg.name
       });
     });
 });
 
-test('read missing blinkmrc.json, defaults to {}', (t) => {
+test('read missing .blinkmrc.json, error', (t) => {
   return t.context.cfg.load()
-    .then((result) => t.same(result, {}));
-});
-
-test('read empty blinkmrc.json, error', (t) => {
-  const cfg = userConfig({
-    userConfigDir: path.join(__dirname, 'fixtures', 'empty'),
-    name: pkg.name
-  });
-  return cfg.load()
-    .then(() => t.fail())
+    .then((data) => t.fail(JSON.stringify(data)))
     .catch((err) => t.ok(err));
 });
 
-test('read blinkmrc.json', (t) => {
-  const cfg = userConfig({
-    userConfigDir: path.join(__dirname, 'fixtures', 'blah'),
+test('read empty .blinkmrc.json, error', (t) => {
+  const cfg = projectConfig({
+    cwd: path.join(__dirname, 'fixtures', 'empty'),
+    name: pkg.name
+  });
+  return cfg.load()
+    .then((data) => t.fail(JSON.stringify(data)))
+    .catch((err) => t.ok(err));
+});
+
+test('read .blinkmrc.json', (t) => {
+  const cfg = projectConfig({
+    cwd: path.join(__dirname, 'fixtures', 'blah'),
     name: pkg.name
   });
   return cfg.load()
@@ -57,16 +58,16 @@ test('read blinkmrc.json', (t) => {
     });
 });
 
-test('write to blinkmrc.json', (t) => {
+test('write to .blinkmrc.json', (t) => {
   return t.context.cfg.write({ test: 'abc' })
     .then((obj) => t.same(obj, { test: 'abc' }))
-    .then(() => require(path.join(t.context.tempDir, 'blinkmrc.json')))
+    .then(() => require(path.join(t.context.tempDir, '.blinkmrc.json')))
     .then((obj) => t.same(obj, { test: 'abc' }));
 });
 
-test('update blinkmrc.json', (t) => {
+test('update .blinkmrc.json', (t) => {
   return fsp.writeFile(
-    path.join(t.context.tempDir, 'blinkmrc.json'),
+    path.join(t.context.tempDir, '.blinkmrc.json'),
     '{"test":"blah"}',
     'utf8'
   )
@@ -75,6 +76,6 @@ test('update blinkmrc.json', (t) => {
       return obj;
     }))
     .then((obj) => t.same(obj, { abc: 'def', test: 'blah' }))
-    .then(() => require(path.join(t.context.tempDir, 'blinkmrc.json')))
+    .then(() => require(path.join(t.context.tempDir, '.blinkmrc.json')))
     .then((obj) => t.same(obj, { abc: 'def', test: 'blah' }));
 });

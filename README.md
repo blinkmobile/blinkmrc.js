@@ -68,8 +68,6 @@ interface ConfigOptions {
 ```
 
 
-
-
 ### ConfigOptions
 
 ```
@@ -97,9 +95,9 @@ Locate the configuration file.
 If found, parse it as JSON and return the Object.
 If not found:
 
-- home: return a new Object
+- userConfig: return a new Object
 
-- project: reject with an Error
+- projectConfig: reject with an Error
 
 
 #### `update (updater: UpdaterFunction) => Promise[Object]`
