@@ -45,8 +45,9 @@ const userConfig = blinkmrc.userConfig({ name: pkg.name, /* ... */ });
 
 ```
 interface ConfigOptions {
+  fileMode = 0o600: Number,
   userConfigDir?: String,
-  ...ConfigOptions
+...ConfigOptions
 }
 ```
 
@@ -63,6 +64,7 @@ const projectConfig = blinkmrc.projectConfig({ name: pkg.name, /* ... */ });
 ```
 interface ConfigOptions {
   cwd = process.cwd(): String,
+  fileMode = 0o666: Number,
   ...ConfigOptions
 }
 ```
@@ -73,7 +75,8 @@ interface ConfigOptions {
 ```
 interface ConfigOptions {
   name: String,
-  filename = 'blinkmrc.json': String
+  filename = 'blinkmrc.json': String,
+  fileMode?: Number
 }
 ```
 
