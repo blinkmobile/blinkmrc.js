@@ -2,9 +2,9 @@
 
 // local modules
 
-const home = require('./lib/home');
-const project = require('./lib/project');
+const userConfig = require('./lib/user-config').userConfig;
+const projectConfig = require('./lib/project-config').projectConfig;
 
 // this module
 
-module.exports = { home, project };
+module.exports = { userConfig, projectConfig };

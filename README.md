@@ -21,7 +21,7 @@ This pair of configuration files are both JSON-formatted.
 
 By default we use the following filenames (but this is configurable):
 
-- home: blinkmrc.json
+- user: blinkmrc.json
 
 - project: .blinkmrc.json (like .eslintrc.json or .travis.yml)
 
@@ -34,25 +34,53 @@ const pkg = require('./package.json');
 ```
 
 
-### `home (options: ConfigOptions) => ConfigStore`
+### `userConfig (options: ConfigOptions) => ConfigStore`
 
 ```js
-const homeConfig = blinkmrc.home({ name: pkg.name, /* ... */ });
+const userConfig = blinkmrc.userConfig({ name: pkg.name, /* ... */ });
 ```
 
 
-#### ConfigOptions
+#### UserConfigOptions
+
+```
+interface ConfigOptions {
+  userConfigDir?: String,
+  ...ConfigOptions
+}
+```
+
+
+### `project (options: ConfigOptions) => ConfigStore`
+
+```js
+const projectConfig = blinkmrc.projectConfig({ name: pkg.name, /* ... */ });
+```
+
+
+#### ProjectConfigOptions
 
 ```
 interface ConfigOptions {
   cwd = process.cwd(): String,
+  ...ConfigOptions
+}
+```
+
+
+
+
+### ConfigOptions
+
+```
+interface ConfigOptions {
   name: String,
   filename = 'blinkmrc.json': String
 }
 ```
 
 
-#### ConfigStore
+### ConfigStore
 
 ```
 interface ConfigStore {
@@ -63,18 +91,15 @@ interface ConfigStore {
 ```
 
 
-### `project (options: ConfigOptions) => ConfigStore`
-
-```js
-const projectConfig = blinkmrc.project({ name: pkg.name, /* ... */ });
-```
-
-
 #### `load () => Promise[Object]`
 
 Locate the configuration file.
 If found, parse it as JSON and return the Object.
-If not found, then return a new Object.
+If not found:
+
+- home: return a new Object
+
+- project: reject with an Error
 
 
 #### `update (updater: UpdaterFunction) => Promise[Object]`

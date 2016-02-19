@@ -1,0 +1,84 @@
+'use strict';
+
+// Node.js built-ins
+
+const fs = require('fs');
+const path = require('path');
+
+// foreign modules
+
+const pify = require('pify');
+const temp = pify(require('temp').track());
+const test = require('ava');
+
+// local modules
+
+const userConfig = require('..').userConfig;
+const pkg = require('../package.json');
+
+// this module
+
+const fsp = pify(fs);
+
+test.beforeEach((t) => {
+  return temp.mkdir(pkg.name.replace(/\//g, '-') + '-')
+    .then((dirPath) => {
+      t.context.tempDir = dirPath;
+      t.context.cfg = userConfig({
+        userConfigDir: dirPath,
+        name: pkg.name
+      });
+    });
+});
+
+test('read missing blinkmrc.json, defaults to {}', (t) => {
+  const cfg = userConfig({
+    userConfigDir: t.context.tempDir,
+    name: pkg.name
+  });
+  return cfg.load()
+    .then((result) => t.same(result, {}));
+});
+
+test('read empty blinkmrc.json, error', (t) => {
+  const cfg = userConfig({
+    userConfigDir: path.join(__dirname, 'fixtures', 'empty'),
+    name: pkg.name
+  });
+  return cfg.load()
+    .then(() => t.fail())
+    .catch((err) => t.ok(err));
+});
+
+test('read blinkmrc.json', (t) => {
+  const cfg = userConfig({
+    userConfigDir: path.join(__dirname, 'fixtures', 'blah'),
+    name: pkg.name
+  });
+  return cfg.load()
+    .then((obj) => {
+      t.same(obj, { test: 'blah' });
+    });
+});
+
+test('write to blinkmrc.json', (t) => {
+  return t.context.cfg.write({ test: 'abc' })
+    .then((obj) => t.same(obj, { test: 'abc' }))
+    .then(() => require(path.join(t.context.tempDir, 'blinkmrc.json')))
+    .then((obj) => t.same(obj, { test: 'abc' }));
+});
+
+test('update blinkmrc.json', (t) => {
+  return fsp.writeFile(
+    path.join(t.context.tempDir, 'blinkmrc.json'),
+    '{"test":"blah"}',
+    'utf8'
+  )
+    .then(() => t.context.cfg.update((obj) => {
+      obj.abc = 'def';
+      return obj;
+    }))
+    .then((obj) => t.same(obj, { abc: 'def', test: 'blah' }))
+    .then(() => require(path.join(t.context.tempDir, 'blinkmrc.json')))
+    .then((obj) => t.same(obj, { abc: 'def', test: 'blah' }));
+});
