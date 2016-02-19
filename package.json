@@ -1,7 +1,7 @@
 {
   "name": "@blinkmobile/blinkmrc",
   "description": "bit like https://github.com/yeoman/configstore but with home-directory and project-specific files",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "bugs": {
     "url": "https://github.com/blinkmobile/blinkmrc.js/issues"
   },
