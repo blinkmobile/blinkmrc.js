@@ -34,7 +34,7 @@ test.beforeEach((t) => {
 test('read missing .blinkmrc.json, error', (t) => {
   return t.context.cfg.load()
     .then((data) => t.fail(JSON.stringify(data)))
-    .catch((err) => t.ok(err));
+    .catch((err) => t.pass(err));
 });
 
 test('read empty .blinkmrc.json, error', (t) => {
@@ -44,7 +44,7 @@ test('read empty .blinkmrc.json, error', (t) => {
   });
   return cfg.load()
     .then((data) => t.fail(JSON.stringify(data)))
-    .catch((err) => t.ok(err));
+    .catch((err) => t.pass(err));
 });
 
 test('read .blinkmrc.json', (t) => {
@@ -54,15 +54,15 @@ test('read .blinkmrc.json', (t) => {
   });
   return cfg.load()
     .then((obj) => {
-      t.same(obj, { test: 'blah' });
+      t.deepEqual(obj, { test: 'blah' });
     });
 });
 
 test('write to .blinkmrc.json', (t) => {
   return t.context.cfg.write({ test: 'abc' })
-    .then((obj) => t.same(obj, { test: 'abc' }))
+    .then((obj) => t.deepEqual(obj, { test: 'abc' }))
     .then(() => require(path.join(t.context.tempDir, '.blinkmrc.json')))
-    .then((obj) => t.same(obj, { test: 'abc' }));
+    .then((obj) => t.deepEqual(obj, { test: 'abc' }));
 });
 
 test('update .blinkmrc.json', (t) => {
@@ -75,7 +75,7 @@ test('update .blinkmrc.json', (t) => {
       obj.abc = 'def';
       return obj;
     }))
-    .then((obj) => t.same(obj, { abc: 'def', test: 'blah' }))
+    .then((obj) => t.deepEqual(obj, { abc: 'def', test: 'blah' }))
     .then(() => require(path.join(t.context.tempDir, '.blinkmrc.json')))
-    .then((obj) => t.same(obj, { abc: 'def', test: 'blah' }));
+    .then((obj) => t.deepEqual(obj, { abc: 'def', test: 'blah' }));
 });
