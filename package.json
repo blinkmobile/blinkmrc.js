@@ -24,6 +24,9 @@
     "pify": "^2.3.0",
     "temp": "^0.8.3"
   },
+  "directories": {
+    "test": "test"
+  },
   "engines": {
     "node": ">=4.0.0",
     "npm": ">=3.0.0"
@@ -36,6 +39,15 @@
   "keywords": [],
   "license": "BSD-3-Clause",
   "main": "index.js",
+  "nyc": {
+    "lines": 80,
+    "statements": 80,
+    "functions": 80,
+    "branches": 50
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/blinkmobile/blinkmrc.js.git"
@@ -44,16 +56,9 @@
     "ava": "nyc ava",
     "eslint": "eslint --fix --cache .",
     "fixpack": "fixpack",
-    "nyc": "nyc check-coverage -s 80 -b 50 -f 80 -l 80",
+    "flow_check": "flow check",
+    "nyc": "nyc check-coverage",
     "posttest": "npm run nyc && npm run eslint && npm run fixpack",
-    "test": "npm run ava",
-    "flow_check": "flow check"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "author": "",
-  "publishConfig": {
-    "access": "public"
+    "test": "npm run ava"
   }
 }
