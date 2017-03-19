@@ -1,5 +1,7 @@
 # blinkmrc.js
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/blinkmobile/blinkmrc.js.svg)](https://greenkeeper.io/)
+
 bit like https://github.com/yeoman/configstore but with home-directory and project-specific files
 
 [![npm module](https://img.shields.io/npm/v/@blinkmobile/blinkmrc.svg)](https://www.npmjs.com/package/@blinkmobile/blinkmrc)
