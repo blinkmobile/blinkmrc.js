@@ -1,12 +1,6 @@
-# blinkmrc.js
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/blinkmobile/blinkmrc.js.svg)](https://greenkeeper.io/)
+# blinkmrc.j [![npm module](https://img.shields.io/npm/v/@blinkmobile/blinkmrc.svg)](https://www.npmjs.com/package/@blinkmobile/blinkmrc) [![Travis CI Status](https://travis-ci.org/blinkmobile/blinkmrc.js.svg?branch=master)](https://travis-ci.org/blinkmobile/blinkmrc.js) [![AppVeyor Status](https://img.shields.io/appveyor/ci/blinkmobile/blinkmrc-js/master.svg)](https://ci.appveyor.com/project/blinkmobile/blinkmrc-js) [![Greenkeeper badge](https://badges.greenkeeper.io/blinkmobile/blinkmrc.js.svg)](https://greenkeeper.io/)
 
 bit like https://github.com/yeoman/configstore but with home-directory and project-specific files
-
-[![npm module](https://img.shields.io/npm/v/@blinkmobile/blinkmrc.svg)](https://www.npmjs.com/package/@blinkmobile/blinkmrc)
-[![Build Status](https://travis-ci.org/blinkmobile/bmp-cli.svg?branch=master)](https://travis-ci.org/blinkmobile/blinkmrc.js)
-
 
 We extracted this from [blinkmobile/bmp-cli](https://github.com/blinkmobile/bmp-cli) for the benefit of our other CLI projects.
 

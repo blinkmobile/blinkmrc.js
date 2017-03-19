@@ -13,11 +13,13 @@
   "devDependencies": {
     "ava": "^0.18.2",
     "eslint": "^3.18.0",
-    "eslint-config-semistandard": "8.0.0",
+    "eslint-config-semistandard": "^8.0.0",
     "eslint-config-standard": "^7.1.0",
+    "eslint-plugin-node": "^4.2.1",
+    "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^2.1.1",
     "fixpack": "^2.2.0",
-    "npm-run-all": "^4.0.2",
+    "flow-bin": "^0.42.0",
     "nyc": "^10.1.2",
     "pify": "^2.3.0",
     "temp": "^0.8.3"
@@ -40,10 +42,18 @@
   },
   "scripts": {
     "ava": "nyc ava",
-    "eslint": "eslint .",
+    "eslint": "eslint --fix --cache .",
     "fixpack": "fixpack",
     "nyc": "nyc check-coverage -s 80 -b 50 -f 80 -l 80",
-    "posttest": "npm-run-all eslint fixpack",
-    "test": "npm-run-all -s ava nyc"
+    "posttest": "npm run nyc && npm run eslint && npm run fixpack",
+    "test": "npm run ava",
+    "flow_check": "flow check"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "author": "",
+  "publishConfig": {
+    "access": "public"
   }
 }
