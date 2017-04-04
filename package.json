@@ -19,7 +19,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^2.1.1",
     "fixpack": "^2.2.0",
-    "flow-bin": "^0.42.0",
+    "flow-bin": "^0.43.0",
     "nyc": "^10.1.2",
     "pify": "^2.3.0",
     "temp": "^0.8.3"
