@@ -2,6 +2,7 @@
   "name": "@blinkmobile/blinkmrc",
   "description": "bit like https://github.com/yeoman/configstore but with home-directory and project-specific files",
   "version": "1.1.0",
+  "author": "Ron Waldon <jokeyrhyme@gmail.com> (https://github.com/jokeyrhyme)",
   "bugs": {
     "url": "https://github.com/blinkmobile/blinkmrc.js/issues"
   },
@@ -12,13 +13,14 @@
   },
   "devDependencies": {
     "ava": "^0.19.0",
-    "eslint": "^3.18.0",
+    "eslint": "^3.19.0",
     "eslint-config-semistandard": "^8.0.0",
-    "eslint-config-standard": "^8.0.0",
-    "eslint-plugin-node": "^4.2.1",
+    "eslint-config-standard": "^10.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^2.1.1",
-    "fixpack": "^2.2.0",
+    "eslint-plugin-standard": "^2.2.0",
+    "fixpack": "^2.3.1",
     "flow-bin": "^0.43.0",
     "nyc": "^10.1.2",
     "pify": "^2.3.0",
@@ -58,7 +60,8 @@
     "fixpack": "fixpack",
     "flow_check": "flow check",
     "nyc": "nyc check-coverage",
-    "posttest": "npm run nyc && npm run eslint && npm run flow_check && npm run fixpack",
+    "posttest": "npm run nyc && npm run eslint && npm run flow_check",
+    "pretest": "npm run fixpack",
     "test": "npm run ava"
   }
 }
