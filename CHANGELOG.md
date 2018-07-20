@@ -1,6 +1,12 @@
 # Change Log
 
 
+## Unreleased
+
+### Fixed
+
+-   ON-1323 # Fixed sorting keys issue on NodeJS 10
+
 ## 1.1.0 - 2016-02-19
 
 
