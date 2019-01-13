@@ -12,7 +12,7 @@
     "write-json-file": "2.3.0"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
+    "ava": "^1.1.0",
     "eslint": "^5.1.0",
     "eslint-config-semistandard": "^12.0.1",
     "eslint-config-standard": "^11.0.0",
